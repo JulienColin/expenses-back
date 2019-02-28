@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import Controller from '../controller.interface';
+import Controller from '../app/controller.interface';
 import Expense from './domain/expense.interface';
 import ExpenseRepository from './repository';
 

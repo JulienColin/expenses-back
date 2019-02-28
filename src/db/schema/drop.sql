@@ -1,0 +1,6 @@
+BEGIN;
+DROP TABLE expense;
+DROP TABLE category;
+DROP TABLE type;
+DROP TABLE person;
+COMMIT;
