@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import Controller from '../app/controller.interface';
 import Expense from './domain/expense.interface';
-import ExpenseRepository from './repository';
+import ExpenseRepository from './expensesRepository';
 
 const EXPENSES_PATH = '/expenses';
 
@@ -18,7 +18,9 @@ export default class ExpensesController implements Controller {
     private initializeRoutes() {
         this.router.get(
             EXPENSES_PATH,
-            (request, response) => response.send(this.expenseRepository.findAll())
+            (request, response) => response.send(
+                this.expenseRepository.findAll()
+            )
         );
         this.router.post(
             EXPENSES_PATH,

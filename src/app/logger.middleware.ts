@@ -14,11 +14,11 @@ function logRequest(
     request: express.Request
 ): void {
     console.log(
-        `${request.method} - ${request.path} - ${JSON.stringify(request.body)}`);
+        `${request.method} - ${request.path} - ${JSON.stringify(request.query)} - ${JSON.stringify(request.body)}`);
 }
 
 function logResponse(
     response: express.Response
 ): void {
-    console.log(`${response.statusCode} - ${response.statusMessage ? response.statusMessage : ''}`);
+    console.log(`${response.statusCode} ${response.statusMessage ? '-' + response.statusMessage : ''}`);
 }

@@ -8,7 +8,10 @@
         "interface-name": [false],
         "no-console": [false],
         "quotemark" : [true, "single"],
-        "trailing-comma" : [false]
+        "trailing-comma" : [false],
+        "ordered-imports" : [false],
+        "object-literal-sort-keys": [false],
+        "max-line-length": [false]
     },
     "rulesDirectory": []
 }

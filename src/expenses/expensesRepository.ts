@@ -26,11 +26,11 @@ export default class ExpenseRepository {
         ];
     }
 
-    public findAll() {
+    public findAll(): Expense[] {
         return this.expenses;
     }
 
-    public add(expense: Expense) {
+    public add(expense: Expense): void {
         this.expenses.push(expense);
     }
 }
