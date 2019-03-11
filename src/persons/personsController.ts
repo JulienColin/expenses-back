@@ -1,6 +1,6 @@
 import express, { Router, response } from 'express';
 import Controller from '../app/controller.interface';
-import Person from './domain/person.interface';
+import PersonDTO from './dto/person.interface';
 import PersonsRepository from './personsRepository';
 
 const PERSONS_PATH = '/persons';
@@ -27,7 +27,7 @@ export default class PersonsController implements Controller {
         this.router.post(
             PERSONS_PATH,
             (request, postResponse) => {
-                const person: Person = request.body;
+                const person: PersonDTO = request.body;
                 this.personsRepository.create(person).then(
                     (createPersonResponse) => postResponse.send(createPersonResponse)
                 );

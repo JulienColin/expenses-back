@@ -1,20 +1,20 @@
 import Pool from '../app/database';
-import Person from './domain/person.interface';
+import PersonDTO from './dto/person.interface';
 import Error from '../app/error';
 import { QueryResult } from 'pg';
 
-const FIND_ALL_ERROR_CODE = 1_1;
-const CREATE_ERROR_CODE = 1_2;
-const DELETE_ERROR_CODE = 1_3;
+const FIND_ALL_PERSONS_ERROR_CODE = 1_1;
+const CREATE_PERSON_ERROR_CODE = 1_2;
+const DELETE_PERSON_ERROR_CODE = 1_3;
 
 export default class PersonsRepository {
-    public findAll(): Promise<Error | Person[]> {
+    public findAll(): Promise<Error | PersonDTO[]> {
         const query = 'SELECT * FROM person;';
         return Pool.query(query)
             .then((response) => this.mapPersons(response))
             .catch((error) => {
                 const businessError = new Error(
-                    FIND_ALL_ERROR_CODE,
+                    FIND_ALL_PERSONS_ERROR_CODE,
                     'Failed to fetch persons (' + error + ')'
                 );
                 businessError.print();
@@ -22,13 +22,13 @@ export default class PersonsRepository {
             });
     }
 
-    public create(person: Person): Promise<Error | Person> {
+    public create(person: PersonDTO): Promise<Error | PersonDTO> {
         const query = 'INSERT INTO person (firstname, lastname) VALUES($1, $2)';
         return Pool.query(query, [person.firstName, person.lastName])
-            .then((response) => this.mapPerson(response))
+            .then(() => person)
             .catch((error) => {
                 const businessError = new Error(
-                    CREATE_ERROR_CODE,
+                    CREATE_PERSON_ERROR_CODE,
                     'Failed to create person (' + error + ')'
                 );
                 businessError.print();
@@ -41,7 +41,7 @@ export default class PersonsRepository {
         return Pool.query(query, [id])
             .catch((error) => {
                 const businessError = new Error(
-                    DELETE_ERROR_CODE,
+                    DELETE_PERSON_ERROR_CODE,
                     'Failed to delete person with id (' + id + ')'
                 );
                 businessError.print();
@@ -49,7 +49,7 @@ export default class PersonsRepository {
             });
     }
 
-    private mapPersons(response: any): Person[] {
+    private mapPersons(response: any): PersonDTO[] {
         return response.rows.map(
             (row: any) => {
                 return this.mapPerson(row);
@@ -57,7 +57,7 @@ export default class PersonsRepository {
         );
     }
 
-    private mapPerson(row: any): Person {
+    private mapPerson(row: any): PersonDTO {
         return {
             id: row.id,
             firstName: row.firstname,

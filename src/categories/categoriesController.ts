@@ -1,6 +1,6 @@
 import express, { Router, response } from 'express';
 import Controller from '../app/controller.interface';
-import Category from './domain/category.interface';
+import CategoryDTO from './dto/category.interface';
 import CategoriesRepository from './categoriesRepository';
 
 const CATEGORIES_PATH = '/categories';
@@ -27,7 +27,7 @@ export default class CategoriesController implements Controller {
         this.router.post(
             CATEGORIES_PATH,
             (request, postResponse) => {
-                const category: Category = request.body;
+                const category: CategoryDTO = request.body;
                 this.categoriesRepository.create(category).then(
                     (createCategoryResponse) => postResponse.send(createCategoryResponse)
                 );
